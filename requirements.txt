@@ -1,0 +1,2 @@
+flask>=0.0
+google-coud-bigquery=>0.0
