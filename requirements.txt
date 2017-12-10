@@ -1,2 +1,4 @@
 flask>=0.0
-google-coud-bigquery=>0.0
+google-cloud-bigquery>=0.0
+google-cloud-datastore>=0.0
+
