@@ -7,12 +7,14 @@ suppose big query talbe exists by:
 import apache_beam as beam
 import datetime
 import time
+import requests
 from apache_beam.options.pipeline_options import PipelineOptions, GoogleCloudOptions, StandardOptions
 
 # --requirements_file requirements.txt
 
 # Create and set your PipelineOptions.
-options = PipelineOptions(flags=['--requirements_file=requirements.txt'])
+options = PipelineOptions(flags=['--save_main_session',
+                                 '--requirements_file=requirements.txt'])
 
 # For Cloud execution, set the Cloud Platform project, job_name,
 # staging location, temp_location and specify DataflowRunner.
@@ -25,7 +27,6 @@ options.view_as(StandardOptions).runner = 'DataflowRunner'
 
 
 def fetch_data(api_key):
-  import requests
   page_size = 100
   cursor_mark = "*"
   while(True):
