@@ -32,7 +32,7 @@ def fetch_data(api_key):
   while(True):
     for i in range(0,10):
       res = requests.get("https://api.bestbuy.com/v1/products?format=json&" +\
-                         "cursorMark=%s&show=name,releaseDate,bestSellingRank&pageSize=%d&apiKey=%s"
+                         "cursorMark=%s&show=name,releaseDate,bestSellingRank,url&pageSize=%d&apiKey=%s"
                          % (cursor_mark, page_size, api_key))
       if res.status_code == 200:
           break

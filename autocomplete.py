@@ -7,7 +7,7 @@ from google.cloud import bigquery
 
 app = Flask(__name__, static_folder='static')
 
-QUERY = "select * from bestbuy.products where name like '%s%%'"
+QUERY = "select * from bestbuy.products2 where name like '%s%%'"
 
 @app.route('/api/v1/autocomplete')
 def autocomplete():

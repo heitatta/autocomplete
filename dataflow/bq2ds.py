@@ -26,6 +26,11 @@ def new_elm(element, key):
     return elm
 
 def gen_key(element):
+  # fix up data
+  for k,v in element.items():
+      if v is None:
+          del(element[k])
+
   # just make it uppercase is a key
   org_key = element['name'].upper()
   result = [new_elm(element, org_key)]
@@ -51,7 +56,7 @@ class EntityWrapper(object):
     return entity
 
 with beam.Pipeline(options=options) as p:
-  (p | 'query from bq'       >> beam.io.Read(beam.io.BigQuerySource(query="select * from bestbuy.products"))
+  (p | 'query from bq'       >> beam.io.Read(beam.io.BigQuerySource(query="select * from bestbuy.products2"))
      | 'generate key'        >> beam.FlatMap(gen_key)
      | 'make entry'          >> beam.Map(EntityWrapper(None, 'products').make_entity)
      | WriteToDatastore("sample-datalab")
