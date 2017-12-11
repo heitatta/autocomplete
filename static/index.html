@@ -4,45 +4,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Autocomplete Demo</title>
-  <link rel="stylesheet" href="/css/base.css"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="/css/jquery-ui.min.css"/>
   <link rel="stylesheet" href="/css/style.css"/>
-  <link rel="stylesheet" href="/css/jquery-ui.css"/>
-  <style>
-  .ui-autocomplete-loading {
-    background: white url("img/ui-anim_basic_16x16.gif") right center no-repeat;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    function log( message ) {
-      $( "<div>" ).text( message ).prependTo( "#log" );
-      $( "#log" ).scrollTop( 0 );
-    }
- 
-    $( "#birds" ).autocomplete({
-      source: "/api/v1/autocomplete",
-      minLength: 2,
-      select: function( event, ui ) {
-        log("Selected: " + ui.item.value);
-      }
-    });
-  } );
-  </script>
+  <script src="/js/jquery-3.2.1.min.js"></script>
+  <script src="/js/jquery-ui.min.js"></script>
+  <script src="/js/autocomplete.js"></script>
 </head>
 <body>
- 
-<div class="ui-widget">
-  <label for="birds">Bestbuy: </label>
-  <input id="birds">
+<div class="container">
+  <h2>Autocomplete Demo (w/Google DataStore)</h2>
+  <div class="row">
+    <div class="form-group col-8"> 
+      <label for="products">Bestbuy Products: </label>
+      <input id="products" class="form-control"/>
+    </div>
+    <div class="form-group col-8">
+      <label for="result">Selected:</label>
+      <div id="result"></div>
+    </div>
+  </div>
 </div>
- 
-<div class="ui-widget" style="margin-top:2em; font-family:Arial">
-  Result:
-  <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
-</div>
- 
- 
 </body>
 </html>

@@ -6,6 +6,7 @@ from flask import Flask, jsonify, request, send_from_directory
 from google.cloud import datastore
 
 app = Flask(__name__, static_folder='static')
+os.environ['FLASK_DEBUG'] = "1"
 
 @app.route('/api/v1/autocomplete')
 def autocomplete():
@@ -18,9 +19,9 @@ def autocomplete():
     query.add_filter('key', '>=', key)
     query.add_filter('key', '<=', key + 'ZZZZZZZZZZZZZZ')
     results = []
-    for row in query.fetch():
+    for row in query.fetch(limit=50):
         name = row.get('name')
-        results.append({'id': name, 'value': name, 'label': name})
+        results.append({'id': name, 'value': name, 'label': row.get('url')})
 
     return jsonify(results)
 
