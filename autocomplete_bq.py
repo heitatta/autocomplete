@@ -3,25 +3,23 @@
 import os
 
 from flask import Flask, jsonify, request, send_from_directory
-from google.cloud import datastore
+from google.cloud import bigquery
 
 app = Flask(__name__, static_folder='static')
-os.environ['FLASK_DEBUG'] = "1"
+
+QUERY = "select * from bestbuy.products2 where name like '%s%%'"
 
 @app.route('/api/v1/autocomplete')
 def autocomplete():
-    key = request.args.get('term', '').upper()
+    key = request.args.get('term', '')
     if key == '':
         return jsonify({})
 
-    ds = datastore.Client()
-    query = ds.query(kind="products")
-    query.add_filter('key', '>=', key)
-    query.add_filter('key', '<=', key + 'ZZZZZZZZZZZZZZ')
+    bq = bigquery.Client()
+    job = bq.query(QUERY % key)
     results = []
-    for row in query.fetch(limit=50):
-        name = row.get('name')
-        results.append({'id': len(results), 'value': row.get('name'), 'label': row.get('url')})
+    for row in job.result():
+        results.append({'id': row.name, 'value': row.name, 'label': row.name})
 
     return jsonify(results)
 

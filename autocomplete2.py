@@ -15,13 +15,13 @@ def autocomplete():
         return jsonify({})
 
     ds = datastore.Client()
-    query = ds.query(kind="products")
-    query.add_filter('key', '>=', key)
-    query.add_filter('key', '<=', key + 'ZZZZZZZZZZZZZZ')
+    query = ds.query(kind="products2")
+    query.add_filter('key', '=', key)
+    query.order = ['-bestSellingRank']
     results = []
     for row in query.fetch(limit=50):
         name = row.get('name')
-        results.append({'id': name, 'value': name, 'label': row.get('url')})
+        results.append({'id': len(results), 'value': row.get('name'), 'label': row.get('url')})
 
     return jsonify(results)
 

@@ -1,0 +1,11 @@
+indexes:
+- kind: products2
+  properties:
+  - name: key
+  - name: bestSellingRank
+    direction: desc
+- kind: products3
+  properties:
+  - name: key
+  - name: bestSellingRank
+    direction: desc

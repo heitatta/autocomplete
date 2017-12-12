@@ -15,9 +15,9 @@ def autocomplete():
         return jsonify({})
 
     ds = datastore.Client()
-    query = ds.query(kind="products")
-    query.add_filter('key', '>=', key)
-    query.add_filter('key', '<=', key + 'ZZZZZZZZZZZZZZ')
+    query = ds.query(kind="products3")
+    query.add_filter('key', '=', key)
+    query.order = ['-bestSellingRank']
     results = []
     for row in query.fetch(limit=50):
         name = row.get('name')
