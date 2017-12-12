@@ -21,7 +21,7 @@ def autocomplete():
     results = []
     for row in query.fetch(limit=50):
         name = row.get('name')
-        results.append({'id': len(results), 'value': row.get('name'), 'label': row.get('url')})
+        results.append({'id': len(results), 'value': row.get('name'), 'url': row.get('url')})
 
     return jsonify(results)
 

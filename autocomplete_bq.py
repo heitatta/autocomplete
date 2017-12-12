@@ -19,7 +19,7 @@ def autocomplete():
     job = bq.query(QUERY % key)
     results = []
     for row in job.result():
-        results.append({'id': row.name, 'value': row.name, 'label': row.name})
+        results.append({'id': row.name, 'value': row.name, 'url': row.name})
 
     return jsonify(results)
 

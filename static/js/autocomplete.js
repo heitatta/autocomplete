@@ -12,9 +12,7 @@ $( function() {
     source: "/api/v1/autocomplete",
     minLength: 2,
     select: function( event, ui ) {
-      console.log(ui.item.value);
-      console.log(ui.item.label);
-	$("#result").html("<a href=" + ui.item.label + ">" + ui.item.value + "</a>");
+	$("#result").html("<a href=" + ui.item.url + ">" + ui.item.value + "</a>");
     }
   });
 });
