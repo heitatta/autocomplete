@@ -55,9 +55,11 @@ class EntityWrapper(object):
     helper.add_properties(entity, content)
     return entity
 
-with beam.Pipeline(options=options) as p:
-  (p | 'query from bq'       >> beam.io.Read(beam.io.BigQuerySource(query="select * from bestbuy.products2"))
-     | 'generate key'        >> beam.FlatMap(gen_key)
-     | 'make entry'          >> beam.Map(EntityWrapper(None, 'products').make_entity)
-     | WriteToDatastore("sample-datalab")
-  )
+p = beam.Pipeline(options=options)
+(p | 'query from bq'       >> beam.io.Read(beam.io.BigQuerySource(query="select * from bestbuy.products"))
+   | 'generate key'        >> beam.FlatMap(gen_key)
+   | 'make entry'          >> beam.Map(EntityWrapper(None, 'products').make_entity)
+   | WriteToDatastore("sample-datalab")
+)
+p.run()
+
